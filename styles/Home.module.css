@@ -17,7 +17,8 @@
 .th{
   top: 0;
   position: sticky;
-  background: #e5d2f1;
+  background: #38598a;
+  color: white;
 }
 
 .td{
@@ -35,6 +36,15 @@
   height: 10rem;
   width: 50%;
   margin: 0 auto;
+}
+
+.button{
+  background-color: #fcba19;
+  color: white;
+  width: 40%;
+  height: 2rem;
+  margin: 1rem auto;
+  border: none;
 }
 
 .selected_developers{

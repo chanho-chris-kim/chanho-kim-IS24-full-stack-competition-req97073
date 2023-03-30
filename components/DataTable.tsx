@@ -4,8 +4,9 @@ import uniqid from "uniqid";
 import editIcon from "../public/edit.svg";
 import deleteIcon from "../public/delete.svg";
 import { useState } from "react";
-import { Interface } from "readline";
+import { useRouter } from "next/router";
 
+// ************************ INTERFACE ****************************
 interface FormData {
   productName: string;
   productOwnerName: string;
@@ -14,8 +15,17 @@ interface FormData {
   methodology: string;
 }
 
+interface FormEditData {
+  productId: string;
+  productName: string;
+  productOwnerName: string;
+  Developers: any;
+  scrumMasterName: string;
+  methodology: string;
+}
+
 interface Products {
-  product: {
+  products: {
     productId: string;
     productName: string;
     productOwnerName: string;
@@ -28,14 +38,31 @@ interface Products {
 
 function DataTable({ products }: Products) {
   const URL = "http://localhost:3000/api/product";
+  const router = useRouter();
+  const refreshData = () => {
+    router.replace(router.asPath);
+  };
+
+  // ************************ USESTATE ****************************
   const [selectedDevelopers, setSelectedDevelopers] = useState([]);
   const [form, setForm] = useState<FormData>({
     productName: "",
     productOwnerName: "",
-    Developers: selectedDevelopers,
+    Developers: JSON.stringify(selectedDevelopers),
     scrumMasterName: "",
     methodology: "",
   });
+  const [editData, setEditData] = useState<FormEditData>();
+
+  // ************************ POST ****************************
+  const handlePostSubmit = async (data: FormData) => {
+    try {
+      setForm({ ...form, Developers: selectedDevelopers });
+      addProduct(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   async function addProduct(data: FormData) {
     try {
@@ -53,12 +80,54 @@ function DataTable({ products }: Products) {
           scrumMasterName: "",
           methodology: "",
         });
+        refreshData();
       });
     } catch (error) {
       console.log(error);
     }
   }
 
+  // ************************ EDIT ****************************
+  const handleEditClicked = async (id: string) => {
+    const foundData = products.find((product) => {
+      return id === product.productId;
+    });
+    if(foundData){
+      setEditData(foundData)
+    } else {
+      console.log("no matching found data for edit")
+    }
+  };
+
+  const handleEditSubmit = async (data: FormEditData) => {
+    try {
+      setEditData({ ...editData, Developers: selectedDevelopers });
+      editProduct(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
+  async function editProduct(data: FormEditData) {
+    try {
+      fetch(`${URL}/${data.productId}`, {
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "PUT",
+      }).then(() => {
+        setEditData(null);
+        refreshData();
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  
+
+  // ************************ DELETE ****************************
   async function deleteProduct(id: string) {
     try {
       fetch(`${URL}/${id}`, {
@@ -66,28 +135,29 @@ function DataTable({ products }: Products) {
           "Content-Type": "application/json",
         },
         method: "DELETE",
+      }).then(() => {
+        refreshData();
       });
     } catch (error) {
       console.log(error);
     }
   }
 
-  const handleSubmit = async (data: FormData) => {
-    try {
-      addProduct(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+  // ************************ HANDLE DEVELOPERS ****************************
   const handleSelectingDevelopers = (e) => {
     if (selectedDevelopers.length < 5) {
-      setSelectedDevelopers([...selectedDevelopers, e.target.value]);
+      setSelectedDevelopers((prev) => [...prev, e.target.value]);
+      setForm((prev) => {
+        const developers = JSON.parse(prev.Developers);
+        return {
+          ...prev,
+          Developers: JSON.stringify([...developers, e.target.value]),
+        };
+      });
     } else {
       console.log("exceeded 5");
     }
   };
-  console.log(form.Developers);
 
   return (
     <>
@@ -99,7 +169,7 @@ function DataTable({ products }: Products) {
           onSubmit={(e) => {
             e.preventDefault();
             console.log(form);
-            handleSubmit(form);
+            handlePostSubmit(form);
           }}
         >
           <textarea
@@ -132,7 +202,7 @@ function DataTable({ products }: Products) {
           <label>
             Developers:
             <select
-              value={[form.selectedDevelopers]}
+              value={[form.Developers]}
               onChange={(e) => handleSelectingDevelopers(e)}
             >
               <option value=""></option>
@@ -166,7 +236,7 @@ function DataTable({ products }: Products) {
             </select>
           </label>
           <label>
-          Methodology:
+            Methodology:
             <select
               value={form.methodology}
               onChange={(e) =>
@@ -178,9 +248,105 @@ function DataTable({ products }: Products) {
               <option value="Agile">Agile</option>
             </select>
           </label>
-          <button type="submit">Add +</button>
+          <button type="submit" className={styles.button}>
+            Add +
+          </button>
         </form>
       </div>
+      {editData && (
+        <div>
+          <h2>Edit</h2>
+          <form
+            className={styles.form}
+            onSubmit={(e) => {
+              e.preventDefault();
+              console.log(editData);
+              handleEditSubmit(editData);
+            }}
+          >
+            <textarea
+              value={editData.productName}
+              onChange={(e) =>
+                setEditData({ ...editData, productName: e.target.value })
+              }
+            />
+            <label>
+              Product Owner Name:
+              <select
+                value={editData.productOwnerName}
+                onChange={(e) =>
+                  setEditData({ ...editData, productOwnerName: e.target.value })
+                }
+              >
+                <option value=""></option>
+                <option value="Lisa">Lisa</option>
+                <option value="Alan">Alan</option>
+                <option value="Michael">Michael</option>
+                <option value="Frankie">Frankie</option>
+                <option value="Jason">Jason</option>
+                <option value="Hassan">Hassan</option>
+                <option value="Hanna">Hanna</option>
+                <option value="Vincent">Vincent</option>
+                <option value="Cornelia">Cornelia</option>
+                <option value="Anna">Anna</option>
+                <option value="Katie">Katie</option>
+              </select>
+            </label>
+            <label>
+              Developers:
+              <select
+                value={editData.Developers}
+                onChange={(e) => handleSelectingDevelopers(e)}
+              >
+                <option value=""></option>
+                <option value="Alan">Alan</option>
+                <option value="Michael">Michael</option>
+                <option value="Frankie">Frankie</option>
+                <option value="Jason">Jason</option>
+                <option value="Hassan">Hassan</option>
+                <option value="Hanna">Hanna</option>
+                <option value="Vincent">Vincent</option>
+                <option value="Cornelia">Cornelia</option>
+                <option value="Anna">Anna</option>
+                <option value="Katie">Katie</option>
+              </select>
+            </label>
+            <div className={styles.selected_developers}>
+            {JSON.parse(editData.Developers).map((developer : string) => {
+                      return <p key={uniqid()}>{developer}</p>;
+                    })}
+            </div>
+            <label>
+              Scrum Master Name:
+              <select
+                value={editData.scrumMasterName}
+                onChange={(e) =>
+                  setEditData({ ...editData, scrumMasterName: e.target.value })
+                }
+              >
+                <option value=""></option>
+                <option value="Lisa">Lisa</option>
+              </select>
+            </label>
+            <label>
+              Methodology:
+              <select
+                value={editData.methodology}
+                onChange={(e) =>
+                  setEditData({ ...editData, methodology: e.target.value })
+                }
+              >
+                <option value=""></option>
+                <option value="Waterfall">Waterfall</option>
+                <option value="Agile">Agile</option>
+              </select>
+            </label>
+            <button type="submit" className={styles.button}>
+              Add +
+            </button>
+          </form>
+        </div>
+      )}
 
       <div className={styles.table_div}>
         <table className={styles.data_table}>
@@ -206,14 +372,14 @@ function DataTable({ products }: Products) {
                       alt="edit"
                       width={20}
                       className={styles.icon}
-                      // onClick={() => handleEdit(product.productId)}
+                      onClick={() => handleEditClicked(product.productId)}
                     />
                     <Image
                       src={deleteIcon}
-                      alt="edit"
+                      alt="delete"
                       width={20}
                       className={styles.icon}
-                      // onClick={() => handleDelete(product.productId)}
+                      onClick={() => deleteProduct(product.productId)}
                     />
                   </td>
                   <td className={styles.td}>{product.productId}</td>

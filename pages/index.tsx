@@ -1,8 +1,8 @@
 import axios from "axios";
-import Layout from "../components/Layout";
+import Layout from "@/components/Layout";
 
 interface Products {
-  product: {
+  products: {
     productId: string;
     productName: string;
     productOwnerName: string;
