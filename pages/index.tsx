@@ -67,6 +67,7 @@ export default function Home({ products }: Products) {
       console.log("no found data for editing");
     }
   }
+
   const deleteDeveloper = (name: string, itsFor: string) => {
     if (itsFor == "add") {
       const newSeletedDevelopers = selectedDevelopers.reduce(
@@ -117,7 +118,8 @@ export default function Home({ products }: Products) {
       const filteredData: any = products.filter((product: any) => {
         return product.Developers.includes(input);
       });
-      setDataForDisplay(filteredData);    }
+      setDataForDisplay(filteredData);
+    }
   }
 
   return (

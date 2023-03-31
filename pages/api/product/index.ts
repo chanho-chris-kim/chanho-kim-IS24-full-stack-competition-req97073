@@ -1,7 +1,7 @@
 import openDb from "../../../helpers/sqliteDatabase";
 const sqlite3 = require("sqlite3");
 
-export default async function getCategories(req, res) {
+export default async function getCategories(req: any, res: any) {
   const db = await openDb(); //fetching data & storing it into db
 
   // API for GET
@@ -37,8 +37,8 @@ export default async function getCategories(req, res) {
     } catch (error) {
       res.json(error, "no data is inserted");
     }
-  } 
-  
+  }
+
   // req.method not euqal to GET || POST
   else {
     res.json("no data found, check your api address or req method");

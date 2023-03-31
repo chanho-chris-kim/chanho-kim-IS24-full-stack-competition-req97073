@@ -86,154 +86,166 @@ function EditModal({
   if (isOpen) {
     return (
       <>
-      <div className={styles.modal_background}>
-        <div className={styles.modal_div}>
-          <div className={styles.align_right}>
-            <div className={styles.button} onClick={() => setIsOpen(false)}>
-              <p>x</p>
+        <div className={styles.modal_background}>
+          <div className={styles.modal_div}>
+            <div className={styles.align_right}>
+              <div
+                className={styles.button}
+                onClick={() => {
+                  setIsOpen(false);
+                  setFormConditioning();
+                  setEditData(null);
+                }}
+              >
+                <p>x</p>
+              </div>
             </div>
-          </div>
-          <h2 className={styles.h2}>Edit</h2>
-          <p className={styles.form_condition}>{formConditioning}</p>
-          <form
-            className={styles.form}
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleEditSubmit(editData);
-            }}
-          >
-            <p className={styles.product_name}>Product Number: {editData.productId}</p>
-            <div className={styles.input}>
+            <h2 className={styles.h2}>Edit</h2>
+            <p className={styles.form_condition}>{formConditioning}</p>
+            <form
+              className={styles.form}
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleEditSubmit(editData);
+              }}
+            >
+              <p className={styles.product_name}>
+                Product Number: {editData.productId}
+              </p>
+              <div className={styles.input}>
                 <label className={styles.display_column}>
-              Product Name:
-              <textarea
-                value={editData.productName}
-                onChange={(e) =>
-                  setEditData({
-                    ...editData,
-                    productName: e.target.value,
-                  })
-                }
-              />
-            </label>
-            </div>
-            <div className={styles.input}>
-            <label>
-              Product Owner Name:
-              <select
-                value={editData.productOwnerName}
-                onChange={(e) =>
-                  setEditData({
-                    ...editData,
-                    productOwnerName: e.target.value,
-                  })
-                }
-              >
-                <option value="" disabled selected></option>
-                <option value="Lisa">Lisa</option>
-                <option value="Alan">Alan</option>
-                <option value="Michael">Michael</option>
-                <option value="Frankie">Frankie</option>
-                <option value="Jason">Jason</option>
-                <option value="Hassan">Hassan</option>
-                <option value="Hanna">Hanna</option>
-                <option value="Vincent">Vincent</option>
-                <option value="Cornelia">Cornelia</option>
-                <option value="Anna">Anna</option>
-                <option value="Katie">Katie</option>
-              </select>
-            </label>
-            </div>
-            <div className={styles.input}>
-            <label>
-              Developers:
-              <select
-                value={editData.Developers}
-                onChange={(e) => handleEditSelectingDevelopers(e)}
-              >
-                <option value="Alan">Alan</option>
-                <option value="Michael">Michael</option>
-                <option value="Frankie">Frankie</option>
-                <option value="Jason">Jason</option>
-                <option value="Hassan">Hassan</option>
-                <option value="Hanna">Hanna</option>
-                <option value="Vincent">Vincent</option>
-                <option value="Cornelia">Cornelia</option>
-                <option value="Anna">Anna</option>
-                <option value="Katie">Katie</option>
-              </select>
-            </label>
-            <div className={styles.selected_developers_box}>
-              {selectedEditDevelopers.map((developer: string) => {
-                return (
-                  <div key={uniqid()} className={styles.selected_developers}>
-                    <p>{developer}</p>
-                    <p
-                      className={styles.mini_delete}
-                      onClick={() => {
-                        deleteDeveloper(developer, "edit");
-                      }}
-                    >
-                      x
-                    </p>
-                  </div>
-                );
-              })}
-            </div>
-            </div>
-            <div className={styles.input}>
-            <label>
-              Scrum Master Name:
-              <select
-                value={editData.scrumMasterName}
-                onChange={(e) =>
-                  setEditData({
-                    ...editData,
-                    scrumMasterName: e.target.value,
-                  })
-                }
-              >
-                <option value="" disabled selected></option>
-                <option value="Lisa">Lisa</option>
-              </select>
-            </label>
-            </div>
-            <div className={styles.input}>
-            <label>
-              Start Date:
-              <input
-                type="date"
-                value={editData.startDate}
-                onChange={(e) =>
-                  setEditData({ ...editData, startDate: e.target.value })
-                }
-              ></input>
-            </label>
-            </div>
-            <div className={styles.input}>
-            <label>
-              Methodology:
-              <select
-                value={editData.methodology}
-                onChange={(e) =>
-                  setEditData({
-                    ...editData,
-                    methodology: e.target.value,
-                  })
-                }
-              >
-                <option value="" disabled selected></option>
-                <option value="Waterfall">Waterfall</option>
-                <option value="Agile">Agile</option>
-              </select>
-            </label>
-            </div>
-            <button type="submit" className={styles.button}>
-              Edit
-            </button>
-          </form>
+                  Product Name:
+                  <textarea
+                    value={editData.productName}
+                    onChange={(e) =>
+                      setEditData({
+                        ...editData,
+                        productName: e.target.value,
+                      })
+                    }
+                  />
+                </label>
+              </div>
+              <div className={styles.input}>
+                <label>
+                  Product Owner Name:
+                  <select
+                    value={editData.productOwnerName}
+                    onChange={(e) =>
+                      setEditData({
+                        ...editData,
+                        productOwnerName: e.target.value,
+                      })
+                    }
+                  >
+                    <option value="" disabled></option>
+                    <option value="lisa">Lisa</option>
+                    <option value="alan">Alan</option>
+                    <option value="michael">Michael</option>
+                    <option value="frankie">Frankie</option>
+                    <option value="jason">Jason</option>
+                    <option value="hassan">Hassan</option>
+                    <option value="jek">Jek</option>
+                    <option value="vincent">Vincent</option>
+                    <option value="cornelia">Cornelia</option>
+                    <option value="anna">Anna</option>
+                    <option value="katie">Katie</option>
+                  </select>
+                </label>
+              </div>
+              <div className={styles.input}>
+                <label>
+                  Developers:
+                  <select
+                    value={editData.Developers}
+                    onChange={(e) => handleEditSelectingDevelopers(e)}
+                  >
+                    <option value="alan">Alan</option>
+                    <option value="michael">Michael</option>
+                    <option value="frankie">Frankie</option>
+                    <option value="jason">Jason</option>
+                    <option value="hassan">Hassan</option>
+                    <option value="jek">Jek</option>
+                    <option value="vincent">Vincent</option>
+                    <option value="cornelia">Cornelia</option>
+                    <option value="anna">Anna</option>
+                    <option value="katie">Katie</option>
+                  </select>
+                </label>
+                <div className={styles.selected_developers_box}>
+                  {selectedEditDevelopers.map((developer: string) => {
+                    return (
+                      <div
+                        key={uniqid()}
+                        className={styles.selected_developers}
+                      >
+                        <p>{developer}</p>
+                        <p
+                          className={styles.mini_delete}
+                          onClick={() => {
+                            deleteDeveloper(developer, "edit");
+                          }}
+                        >
+                          x
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+              <div className={styles.input}>
+                <label>
+                  Scrum Master Name:
+                  <select
+                    value={editData.scrumMasterName}
+                    onChange={(e) =>
+                      setEditData({
+                        ...editData,
+                        scrumMasterName: e.target.value,
+                      })
+                    }
+                  >
+                    <option value="" disabled></option>
+                    <option value="lisa">lisa</option>
+                  </select>
+                </label>
+              </div>
+              <div className={styles.input}>
+                <label>
+                  Start Date:
+                  <input
+                    type="date"
+                    value={editData.startDate}
+                    onChange={(e) =>
+                      setEditData({ ...editData, startDate: e.target.value })
+                    }
+                  ></input>
+                </label>
+              </div>
+              <div className={styles.input}>
+                <label>
+                  Methodology:
+                  <select
+                    value={editData.methodology}
+                    onChange={(e) =>
+                      setEditData({
+                        ...editData,
+                        methodology: e.target.value,
+                      })
+                    }
+                  >
+                    <option value="" disabled></option>
+                    <option value="waterfall">Waterfall</option>
+                    <option value="agile">Agile</option>
+                  </select>
+                </label>
+              </div>
+              <button type="submit" className={styles.button}>
+                Edit
+              </button>
+            </form>
+          </div>
         </div>
-      </div>
       </>
     );
   } else {

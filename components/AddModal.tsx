@@ -12,6 +12,7 @@ interface FormData {
 }
 
 function AddModal({
+  dataForDisplay,
   formConditioning,
   setFormConditioning,
   isOpenAdd,
@@ -66,6 +67,7 @@ function AddModal({
         },
         method: "POST",
       }).then(() => {
+        console.log(dataForDisplay);
         setFormConditioning();
         setForm({
           productName: "",
@@ -108,7 +110,19 @@ function AddModal({
             <div className={styles.align_right}>
               <div
                 className={styles.button}
-                onClick={() => setIsOpenAdd(false)}
+                onClick={() => {
+                  setSelectedDevelopers([]);
+                  setFormConditioning();
+                  setForm({
+                    productName: "",
+                    productOwnerName: "",
+                    Developers: "",
+                    scrumMasterName: "",
+                    startDate: "",
+                    methodology: "",
+                  });
+                  setIsOpenAdd(false);
+                }}
               >
                 <p>x</p>
               </div>
@@ -143,7 +157,7 @@ function AddModal({
                       setForm({ ...form, productOwnerName: e.target.value })
                     }
                   >
-                    <option value="" disabled selected></option>
+                    <option value="" disabled></option>
                     <option value="lisa">Lisa</option>
                     <option value="alan">Alan</option>
                     <option value="michael">Michael</option>
@@ -204,7 +218,7 @@ function AddModal({
                       setForm({ ...form, scrumMasterName: e.target.value })
                     }
                   >
-                    <option value="" disabled selected></option>
+                    <option value="" disabled></option>
                     <option value="lisa">Lisa</option>
                   </select>
                 </label>
@@ -230,7 +244,7 @@ function AddModal({
                       setForm({ ...form, methodology: e.target.value })
                     }
                   >
-                    <option value="" disabled selected></option>
+                    <option value="" disabled></option>
                     <option value="waterfall">Waterfall</option>
                     <option value="agile">Agile</option>
                   </select>

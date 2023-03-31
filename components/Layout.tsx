@@ -9,6 +9,7 @@ import Search from "./Search";
 
 const Layout = ({
   dataForDisplay,
+  setDataForDisplay,
   selectedDevelopers,
   setSelectedDevelopers,
   formConditioning,
@@ -46,6 +47,7 @@ const Layout = ({
       <Navbar />
       <div className={styles.page}>
         <AddModal
+          dataForDisplay={dataForDisplay}
           formConditioning={formConditioning}
           setFormConditioning={setFormConditioning}
           isOpenAdd={isOpenAdd}
@@ -76,7 +78,8 @@ const Layout = ({
 
         <h1>IMB Database</h1>
         <div className={styles.align_right}>
-          <div className={styles.button} onClick={() => setIsOpenAdd(true)}> {/* trigers isOpenAdd to display AddModal.tsx */}
+          <div className={styles.button} onClick={() => setIsOpenAdd(true)}>
+            {/* trigers isOpenAdd to display AddModal.tsx */}
             <p>Add New</p>
           </div>
         </div>
