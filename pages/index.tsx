@@ -14,7 +14,6 @@ interface Products {
 }
 
 export default function Home({ products }: Products) {
-  console.log(products);
   return <Layout products={products} />;
 }
 

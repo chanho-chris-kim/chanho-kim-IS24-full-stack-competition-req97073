@@ -45,6 +45,7 @@ function DataTable({ products }: Products) {
 
   // ************************ USESTATE ****************************
   const [selectedDevelopers, setSelectedDevelopers] = useState([]);
+  const [selectedEditDevelopers, setSelectedEditDevelopers] = useState([]);
   const [form, setForm] = useState<FormData>({
     productName: "",
     productOwnerName: "",
@@ -92,22 +93,24 @@ function DataTable({ products }: Products) {
     const foundData = products.find((product) => {
       return id === product.productId;
     });
-    if(foundData){
-      setEditData(foundData)
+    if (foundData) {
+      setEditData(foundData);
+      console.log(foundData);
+      setSelectedEditDevelopers(JSON.parse(foundData.Developers));
+      console.log(selectedEditDevelopers);
     } else {
-      console.log("no matching found data for edit")
+      console.log("no matching found data for edit");
     }
   };
 
   const handleEditSubmit = async (data: FormEditData) => {
     try {
-      setEditData({ ...editData, Developers: selectedDevelopers });
       editProduct(data);
     } catch (error) {
       console.log(error);
     }
   };
-  
+
   async function editProduct(data: FormEditData) {
     try {
       fetch(`${URL}/${data.productId}`, {
@@ -124,8 +127,6 @@ function DataTable({ products }: Products) {
       console.log(error);
     }
   }
-
-  
 
   // ************************ DELETE ****************************
   async function deleteProduct(id: string) {
@@ -145,7 +146,9 @@ function DataTable({ products }: Products) {
 
   // ************************ HANDLE DEVELOPERS ****************************
   const handleSelectingDevelopers = (e) => {
-    if (selectedDevelopers.length < 5) {
+    if (selectedDevelopers.includes(e.target.value)) {
+      return;
+    } else if (selectedDevelopers.length < 5) {
       setSelectedDevelopers((prev) => [...prev, e.target.value]);
       setForm((prev) => {
         const developers = JSON.parse(prev.Developers);
@@ -156,6 +159,46 @@ function DataTable({ products }: Products) {
       });
     } else {
       console.log("exceeded 5");
+    }
+  };
+
+  const handleEditSelectingDevelopers = (e: any) => {
+    if (selectedEditDevelopers.includes(e.target.value)) {
+      return;
+    } else if (selectedEditDevelopers.length < 5) {
+      setSelectedEditDevelopers((prev) => [...prev, e.target.value]);
+      setEditData((prev) => {
+        const developers = JSON.parse(prev.Developers);
+        return {
+          ...prev,
+          Developers: JSON.stringify([...developers, e.target.value]),
+        };
+      });
+    } else {
+      console.log("exceeded 5");
+    }
+  };
+
+  const deleteDeveloper = (name: string, itsFor: string) => {
+    console.log(selectedDevelopers);
+    if (itsFor === "add") {
+      const newSeletedDevelopers = selectedDevelopers.reduce(
+        (p, c) => (c != name && p.push(c), p),
+        []
+      );
+      setSelectedDevelopers(newSeletedDevelopers);
+    } else {
+      const newSeletedDevelopers = selectedEditDevelopers.reduce(
+        (p, c) => (c != name && p.push(c), p),
+        []
+      );
+      setSelectedEditDevelopers(newSeletedDevelopers);
+      setEditData((prev) => {
+        return {
+          ...prev,
+          Developers: JSON.stringify(newSeletedDevelopers),
+        };
+      });
     }
   };
 
@@ -202,6 +245,7 @@ function DataTable({ products }: Products) {
           <label>
             Developers:
             <select
+              multiple
               value={[form.Developers]}
               onChange={(e) => handleSelectingDevelopers(e)}
             >
@@ -218,9 +262,19 @@ function DataTable({ products }: Products) {
               <option value="Katie">Katie</option>
             </select>
           </label>
-          <div className={styles.selected_developers}>
+          <div className={styles.selected_developers_box}>
             {selectedDevelopers.map((selectedDeveloper) => (
-              <p key={uniqid()}>{selectedDeveloper}</p>
+              <div key={uniqid()} className={styles.selected_developers}>
+                <p>{selectedDeveloper}</p>
+                <p
+                  className={styles.mini_delete}
+                  onClick={() => {
+                    deleteDeveloper(selectedDeveloper, "add");
+                  }}
+                >
+                  x
+                </p>
+              </div>
             ))}
           </div>
           <label>
@@ -296,7 +350,7 @@ function DataTable({ products }: Products) {
               Developers:
               <select
                 value={editData.Developers}
-                onChange={(e) => handleSelectingDevelopers(e)}
+                onChange={(e) => handleEditSelectingDevelopers(e)}
               >
                 <option value=""></option>
                 <option value="Alan">Alan</option>
@@ -312,9 +366,21 @@ function DataTable({ products }: Products) {
               </select>
             </label>
             <div className={styles.selected_developers}>
-            {JSON.parse(editData.Developers).map((developer : string) => {
-                      return <p key={uniqid()}>{developer}</p>;
-                    })}
+              {selectedEditDevelopers.map((developer: string) => {
+                return (
+                  <div key={uniqid()} className={styles.selected_developers}>
+                    <p>{developer}</p>
+                    <p
+                      className={styles.mini_delete}
+                      onClick={() => {
+                        deleteDeveloper(developer, "edit");
+                      }}
+                    >
+                      x
+                    </p>
+                  </div>
+                );
+              })}
             </div>
             <label>
               Scrum Master Name:

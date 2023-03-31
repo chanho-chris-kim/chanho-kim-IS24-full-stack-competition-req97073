@@ -47,10 +47,28 @@
   border: none;
 }
 
-.selected_developers{
+.selected_developers_box{
   display: flex;
   justify-content: space-around;
   font-size: 0.7rem;
+}
+
+.selected_developers{
+  display: flex;
+  justify-content: space-around;
+  align-items:baseline;
+  color: white;
+  width:fit-content;
+  background-color: #38598a;
+  padding: 0 0.5rem;
+  border-radius: 4px;
+}
+
+.mini_delete{
+  padding-left: 0.6rem;
+  color:#fcba19;
+  font-size: 1rem;
+  cursor: pointer;
 }
 
 .navbar{

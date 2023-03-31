@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import openDb from "../../../helpers/sqliteDatabase";
+const sqlite3 = require("sqlite3");
 
 export default async function handler(
   req: NextApiRequest,
@@ -24,14 +25,16 @@ export default async function handler(
     );
     try {
       const response = await updateProduct.run(
-        productId,
         req.body.productName,
         req.body.productOwnerName,
         req.body.Developers,
         req.body.scrumMasterName,
-        req.body.methodology
+        req.body.methodology,
+        productId
       );
-      await response.finalize();
+      console.log(response);
+        res.json(response);
+    //   await response.finalize();
     } catch (error) {
       res.json(`${error} no data is edited`);
     }
