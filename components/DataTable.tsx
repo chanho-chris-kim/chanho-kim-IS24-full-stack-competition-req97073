@@ -8,7 +8,6 @@ function DataTable({
   dataForDisplay,
   handleEditClick,
   handleDeleteClick,
-  searchQuery
 }: any) {
   return (
     <>

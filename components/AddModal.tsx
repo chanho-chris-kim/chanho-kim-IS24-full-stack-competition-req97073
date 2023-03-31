@@ -144,17 +144,17 @@ function AddModal({
                     }
                   >
                     <option value="" disabled selected></option>
-                    <option value="Lisa">Lisa</option>
-                    <option value="Alan">Alan</option>
-                    <option value="Michael">Michael</option>
-                    <option value="Frankie">Frankie</option>
-                    <option value="Jason">Jason</option>
-                    <option value="Hassan">Hassan</option>
-                    <option value="Hanna">Hanna</option>
-                    <option value="Vincent">Vincent</option>
-                    <option value="Cornelia">Cornelia</option>
-                    <option value="Anna">Anna</option>
-                    <option value="Katie">Katie</option>
+                    <option value="lisa">Lisa</option>
+                    <option value="alan">Alan</option>
+                    <option value="michael">Michael</option>
+                    <option value="frankie">Frankie</option>
+                    <option value="jason">Jason</option>
+                    <option value="hassan">Hassan</option>
+                    <option value="jek">Jek</option>
+                    <option value="vincent">Vincent</option>
+                    <option value="cornelia">Cornelia</option>
+                    <option value="anna">Anna</option>
+                    <option value="katie">Katie</option>
                   </select>
                 </label>
               </div>
@@ -166,16 +166,16 @@ function AddModal({
                     value={[form.Developers]}
                     onChange={(e) => handleSelectingDevelopers(e)}
                   >
-                    <option value="Alan">Alan</option>
-                    <option value="Michael">Michael</option>
-                    <option value="Frankie">Frankie</option>
-                    <option value="Jason">Jason</option>
-                    <option value="Hassan">Hassan</option>
-                    <option value="Hanna">Hanna</option>
-                    <option value="Vincent">Vincent</option>
-                    <option value="Cornelia">Cornelia</option>
-                    <option value="Anna">Anna</option>
-                    <option value="Katie">Katie</option>
+                    <option value="alan">Alan</option>
+                    <option value="michael">Michael</option>
+                    <option value="frankie">Frankie</option>
+                    <option value="jason">Jason</option>
+                    <option value="hassan">Hassan</option>
+                    <option value="jek">Jek</option>
+                    <option value="vincent">Vincent</option>
+                    <option value="cornelia">Cornelia</option>
+                    <option value="anna">Anna</option>
+                    <option value="katie">Katie</option>
                   </select>
                 </label>
 
@@ -186,7 +186,7 @@ function AddModal({
                       <p
                         className={styles.mini_delete}
                         onClick={() => {
-                          deleteDeveloper(selectedDeveloper, "add");
+                          deleteDeveloper(selectedDeveloper, "add"); // to notify that the user wants to delete developer from array of developers in add modal
                         }}
                       >
                         x
@@ -205,7 +205,7 @@ function AddModal({
                     }
                   >
                     <option value="" disabled selected></option>
-                    <option value="Lisa">Lisa</option>
+                    <option value="lisa">Lisa</option>
                   </select>
                 </label>
               </div>
@@ -231,8 +231,8 @@ function AddModal({
                     }
                   >
                     <option value="" disabled selected></option>
-                    <option value="Waterfall">Waterfall</option>
-                    <option value="Agile">Agile</option>
+                    <option value="waterfall">Waterfall</option>
+                    <option value="agile">Agile</option>
                   </select>
                 </label>
               </div>

@@ -22,15 +22,14 @@ export default async function getCategories(req, res) {
     const createProduct = await db.prepare(
       "INSERT INTO product (productName, productOwnerName, Developers, scrumMasterName, startDate, methodology) VALUES(?,?,?,?,?,?)"
     );
-    // if 200
     try {
       const response = await createProduct.run(
         req.body.productName,
-        req.body.productOwnerName.lowercase(),
-        req.body.Developers.lowercase(),
-        req.body.scrumMasterName.lowercase(),
+        req.body.productOwnerName,
+        req.body.Developers,
+        req.body.scrumMasterName,
         req.body.startDate,
-        req.body.methodology.lowercase()
+        req.body.methodology
       );
       await response.finalize();
 

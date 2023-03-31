@@ -86,7 +86,6 @@ const Layout = ({
           handleEditClick={handleEditClick}
           handleDeleteClick={handleDeleteClick}
           isOpenAdd={isOpenAdd}
-          searchQuery={searchQuery}
         />
 
         <Search

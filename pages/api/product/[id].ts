@@ -26,11 +26,11 @@ export default async function handler(
     try {
       const response = await updateProduct.run(
         req.body.productName,
-        req.body.productOwnerName.lowercase(),
-        req.body.Developers.lowercase(),
-        req.body.scrumMasterName.lowercase(),
+        req.body.productOwnerName,
+        req.body.Developers,
+        req.body.scrumMasterName,
         req.body.startDate,
-        req.body.methodology.lowercase(),
+        req.body.methodology,
         productId
       );
       console.log(response);

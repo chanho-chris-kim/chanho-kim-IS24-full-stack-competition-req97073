@@ -9,9 +9,9 @@ function Search({
 }: any) {
   return (
     <>
-      <div className={styles.flex}>
+      <div className={styles.search_bar}>
         <h3>Search by</h3>
-        <div className={styles.flex}>
+        <div className={styles.buttons}>
           <div
             className={styles.button}
             onClick={() => {
@@ -34,6 +34,7 @@ function Search({
         {isOpenSearch != "" ? (
           <input
             type="text"
+            placeholder={isOpenSearch}
             value={searchQuery}
             onChange={(e) => {
                 setSearchQuery(e.target.value); //changing searchQuery value lively to display the input tag value

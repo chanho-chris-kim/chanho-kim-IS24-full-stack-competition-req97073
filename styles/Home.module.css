@@ -58,7 +58,7 @@ z-index: 1;
 .buttons{
   display: flex;
   justify-content: space-around;
-  margin: 1.5rem 0;
+  margin: 1.5rem;
 }
 .button{
   background-color: #fcba19;
@@ -70,6 +70,12 @@ z-index: 1;
   color: white;
   padding: 0.3rem 1rem;
   border: none;
+  margin: 0 0.1rem;
+}
+
+
+.button:hover{
+  filter:opacity(70%);
 }
 
 .data_table{
@@ -99,6 +105,10 @@ z-index: 1;
 .icon{
   cursor: pointer;
   margin: 0.5rem 0.5rem;
+}
+
+.icon:hover{
+  filter:opacity(50%);
 }
 
 .form{
@@ -137,3 +147,13 @@ z-index: 1;
   background-color: #003366;
   padding: 0.8rem;
 }
+
+.search_bar{
+  display: flex;
+  align-items: baseline;
+  background-color: #38598a;
+  padding: 0 1rem;
+  margin: 0.2rem -0.05rem;
+  color: white;
+}
+
