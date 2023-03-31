@@ -33,7 +33,13 @@
 .form{
   display: flex;
   flex-direction: column;
-  height: 10rem;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.edit_form{
+  display: flex;
+  flex-direction: column;
   width: 50%;
   margin: 0 auto;
 }

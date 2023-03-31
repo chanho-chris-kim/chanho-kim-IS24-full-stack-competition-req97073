@@ -12,6 +12,7 @@ interface FormData {
   productOwnerName: string;
   Developers: any;
   scrumMasterName: string;
+  startDate: string;
   methodology: string;
 }
 
@@ -21,6 +22,7 @@ interface FormEditData {
   productOwnerName: string;
   Developers: any;
   scrumMasterName: string;
+  startDate: string;
   methodology: string;
 }
 
@@ -31,7 +33,7 @@ interface Products {
     productOwnerName: string;
     Developers: JSON;
     scrumMasterName: string;
-    startdate: Date;
+    startDate: Date;
     methodology: string;
   }[];
 }
@@ -51,6 +53,7 @@ function DataTable({ products }: Products) {
     productOwnerName: "",
     Developers: JSON.stringify(selectedDevelopers),
     scrumMasterName: "",
+    startDate: "",
     methodology: "",
   });
   const [editData, setEditData] = useState<FormEditData>();
@@ -79,6 +82,7 @@ function DataTable({ products }: Products) {
           productOwnerName: "",
           Developers: "",
           scrumMasterName: "",
+          startDate: "",
           methodology: "",
         });
         refreshData();
@@ -95,9 +99,7 @@ function DataTable({ products }: Products) {
     });
     if (foundData) {
       setEditData(foundData);
-      console.log(foundData);
       setSelectedEditDevelopers(JSON.parse(foundData.Developers));
-      console.log(selectedEditDevelopers);
     } else {
       console.log("no matching found data for edit");
     }
@@ -180,7 +182,6 @@ function DataTable({ products }: Products) {
   };
 
   const deleteDeveloper = (name: string, itsFor: string) => {
-    console.log(selectedDevelopers);
     if (itsFor === "add") {
       const newSeletedDevelopers = selectedDevelopers.reduce(
         (p, c) => (c != name && p.push(c), p),
@@ -211,7 +212,6 @@ function DataTable({ products }: Products) {
           className={styles.form}
           onSubmit={(e) => {
             e.preventDefault();
-            console.log(form);
             handlePostSubmit(form);
           }}
         >
@@ -290,6 +290,14 @@ function DataTable({ products }: Products) {
             </select>
           </label>
           <label>
+            Start Date:
+            <input
+              type="date"
+              value={form.startDate}
+              onChange={(e) => setForm({ ...form, startDate: e.target.value })}
+            ></input>
+          </label>
+          <label>
             Methodology:
             <select
               value={form.methodology}
@@ -303,7 +311,7 @@ function DataTable({ products }: Products) {
             </select>
           </label>
           <button type="submit" className={styles.button}>
-            Add +
+            Add
           </button>
         </form>
       </div>
@@ -311,13 +319,13 @@ function DataTable({ products }: Products) {
         <div>
           <h2>Edit</h2>
           <form
-            className={styles.form}
+            className={styles.edit_form}
             onSubmit={(e) => {
               e.preventDefault();
-              console.log(editData);
               handleEditSubmit(editData);
             }}
           >
+            <p>Product Number: {editData.productId}</p>
             <textarea
               value={editData.productName}
               onChange={(e) =>
@@ -395,6 +403,16 @@ function DataTable({ products }: Products) {
               </select>
             </label>
             <label>
+              Start Date:
+              <input
+                type="date"
+                value={editData.startDate}
+                onChange={(e) =>
+                  setEditData({ ...editData, startDate: e.target.value })
+                }
+              ></input>
+            </label>
+            <label>
               Methodology:
               <select
                 value={editData.methodology}
@@ -408,7 +426,7 @@ function DataTable({ products }: Products) {
               </select>
             </label>
             <button type="submit" className={styles.button}>
-              Add +
+              Edit
             </button>
           </form>
         </div>
@@ -420,7 +438,10 @@ function DataTable({ products }: Products) {
             <tr className={styles.th}>
               <th></th>
               <th>Product Number</th>
-              <th>Product</th>
+              <th>
+                Product {"("}total: {products.length}
+                {")"}
+              </th>
               <th>Product Owner</th>
               <th>Developers</th>
               <th>Scrum Master</th>

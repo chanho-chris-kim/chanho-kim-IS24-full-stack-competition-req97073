@@ -21,7 +21,7 @@ export default async function handler(
     }
   } else if (req.method === "PUT") {
     const updateProduct = await db.prepare(
-      "UPDATE product SET productName = ?, productOwnerName = ?, Developers = ?, scrumMasterName = ?, methodology = ? WHERE productId = ?"
+      "UPDATE product SET productName = ?, productOwnerName = ?, Developers = ?, scrumMasterName = ?, startDate=?, methodology = ? WHERE productId = ?"
     );
     try {
       const response = await updateProduct.run(
@@ -29,6 +29,7 @@ export default async function handler(
         req.body.productOwnerName,
         req.body.Developers,
         req.body.scrumMasterName,
+        req.body.startDate,
         req.body.methodology,
         productId
       );
