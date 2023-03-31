@@ -1,6 +1,5 @@
 import axios from "axios";
 import Layout from "@/components/Layout";
-import EditModal from "@/components/EditModal";
 import { useState } from "react";
 
 interface Products {
@@ -35,7 +34,7 @@ interface FormEditData {
 }
 
 export default function Home({ products }: Products) {
-  const URL = "http://localhost:3000/api/product";
+  const [dataForDisplay, setDataForDisplay] = useState(products);
   const [selectedDevelopers, setSelectedDevelopers] = useState([]);
   const [form, setForm] = useState<FormData>({
     productName: "",
@@ -47,9 +46,13 @@ export default function Home({ products }: Products) {
   });
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isOpenAdd, setIsOpenAdd] = useState<boolean>(false);
+  const [isOpenDelete, setIsOpenDelete] = useState<boolean>(false);
+  const [isOpenSearch, setIsOpenSearch] = useState<string>("");
+  const [deleteId, setDeleteId] = useState<string>();
   const [formConditioning, setFormConditioning] = useState<string>();
   const [editData, setEditData] = useState<FormEditData>();
   const [selectedEditDevelopers, setSelectedEditDevelopers] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   async function handleEditClick(id: string) {
     const foundData: any = products.find((product: any) => {
@@ -65,9 +68,9 @@ export default function Home({ products }: Products) {
     }
   }
   const deleteDeveloper = (name: string, itsFor: string) => {
-    if(itsFor=="add"){
+    if (itsFor == "add") {
       const newSeletedDevelopers = selectedDevelopers.reduce(
-        (p:any, c:any) => (c != name && p.push(c), p),
+        (p: any, c: any) => (c != name && p.push(c), p),
         []
       );
       setSelectedDevelopers(newSeletedDevelopers);
@@ -77,7 +80,7 @@ export default function Home({ products }: Products) {
           Developers: JSON.stringify(newSeletedDevelopers),
         };
       });
-    } else{
+    } else {
       const newSeletedDevelopers = selectedEditDevelopers.reduce(
         (p: any, c: any) => (c != name && p.push(c), p),
         []
@@ -90,11 +93,36 @@ export default function Home({ products }: Products) {
         };
       });
     }
-    
   };
+
+  async function handleDeleteClick(id: string) {
+    const foundData: any = products.find((product: any) => {
+      return id === product.productId;
+    });
+    if (foundData) {
+      setDeleteId(id);
+      setIsOpenDelete(true);
+    } else {
+      console.log("no found data for deleting");
+    }
+  }
+
+  async function handleSearchInput(input: string, searchFor: string) {
+    if (searchFor == "scrum_master") {
+      const filteredData: any = products.filter((product: any) => {
+        return product.scrumMasterName.includes(input);
+      });
+      setDataForDisplay(filteredData);
+    } else if (searchFor == "developer_name") {
+      const filteredData: any = products.filter((product: any) => {
+        return product.Developers.includes(input);
+      });
+      setDataForDisplay(filteredData);    }
+  }
+
   return (
     <Layout
-      products={products}
+      dataForDisplay={dataForDisplay}
       selectedDevelopers={selectedDevelopers}
       setSelectedDevelopers={setSelectedDevelopers}
       formConditioning={formConditioning}
@@ -105,18 +133,28 @@ export default function Home({ products }: Products) {
       setIsOpenAdd={setIsOpenAdd}
       isOpen={isOpen}
       setIsOpen={setIsOpen}
+      isOpenDelete={isOpenDelete}
+      setIsOpenDelete={setIsOpenDelete}
+      isOpenSearch={isOpenSearch}
+      setIsOpenSearch={setIsOpenSearch}
+      deleteId={deleteId}
+      setDeleteId={setDeleteId}
       editData={editData}
       setEditData={setEditData}
       selectedEditDevelopers={selectedEditDevelopers}
       setSelectedEditDevelopers={setSelectedEditDevelopers}
       handleEditClick={handleEditClick}
+      handleDeleteClick={handleDeleteClick}
       deleteDeveloper={deleteDeveloper}
+      handleSearchInput={handleSearchInput}
+      searchQuery={searchQuery}
+      setSearchQuery={setSearchQuery}
     />
   );
 }
 
 export async function getServerSideProps() {
-  const productRes:any = await axios
+  const productRes: any = await axios
     .get("http://localhost:3000/api/product")
     .catch(function (error) {
       if (error.response) {

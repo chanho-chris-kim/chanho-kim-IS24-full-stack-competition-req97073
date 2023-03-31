@@ -3,9 +3,12 @@ import AddModal from "./AddModal";
 import EditModal from "./EditModal";
 import DataTable from "./DataTable";
 import Navbar from "./Navbar";
+import DeleteModal from "./DeleteModal";
+import styles from "../styles/Home.module.css";
+import Search from "./Search";
 
 const Layout = ({
-  products,
+  dataForDisplay,
   selectedDevelopers,
   setSelectedDevelopers,
   formConditioning,
@@ -14,14 +17,24 @@ const Layout = ({
   setForm,
   isOpenAdd,
   setIsOpenAdd,
-  isOpen,
+  isOpen, //                      <-----  list of props from index.tsx
   setIsOpen,
+  isOpenDelete,
+  setIsOpenDelete,
+  isOpenSearch,
+  setIsOpenSearch,
+  deleteId,
+  setDeleteId,
   editData,
   setEditData,
   selectedEditDevelopers,
   setSelectedEditDevelopers,
   handleEditClick,
+  handleDeleteClick,
   deleteDeveloper,
+  handleSearchInput,
+  searchQuery,
+  setSearchQuery,
 }: any) => {
   return (
     <>
@@ -31,35 +44,59 @@ const Layout = ({
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <AddModal
-        formConditioning={formConditioning}
-        setFormConditioning={setFormConditioning}
-        isOpenAdd={isOpenAdd}
-        setIsOpenAdd={setIsOpenAdd}
-        products={products}
-        selectedDevelopers={selectedDevelopers}
-        setSelectedDevelopers={setSelectedDevelopers}
-        form={form}
-        setForm={setForm}
-        deleteDeveloper={deleteDeveloper}
-      />
-      <EditModal
-        formConditioning={formConditioning}
-        setFormConditioning={setFormConditioning}
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        editData={editData}
-        setEditData={setEditData}
-        selectedEditDevelopers={selectedEditDevelopers}
-        setSelectedEditDevelopers={setSelectedEditDevelopers}
-        deleteDeveloper={deleteDeveloper}
-      />
-      <DataTable
-        products={products}
-        handleEditClick={handleEditClick}
-        isOpenAdd={isOpenAdd}
-        setIsOpenAdd={setIsOpenAdd}
-      />
+      <div className={styles.page}>
+        <AddModal
+          formConditioning={formConditioning}
+          setFormConditioning={setFormConditioning}
+          isOpenAdd={isOpenAdd}
+          setIsOpenAdd={setIsOpenAdd}
+          selectedDevelopers={selectedDevelopers}
+          setSelectedDevelopers={setSelectedDevelopers}
+          form={form}
+          setForm={setForm}
+          deleteDeveloper={deleteDeveloper}
+        />
+        <EditModal
+          formConditioning={formConditioning}
+          setFormConditioning={setFormConditioning}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          editData={editData}
+          setEditData={setEditData}
+          selectedEditDevelopers={selectedEditDevelopers}
+          setSelectedEditDevelopers={setSelectedEditDevelopers}
+          deleteDeveloper={deleteDeveloper}
+        />
+        <DeleteModal
+          isOpenDelete={isOpenDelete}
+          setIsOpenDelete={setIsOpenDelete}
+          deleteId={deleteId}
+          setDeleteId={setDeleteId}
+        />
+
+        <h1>IMB Database</h1>
+        <div className={styles.align_right}>
+          <div className={styles.button} onClick={() => setIsOpenAdd(true)}> {/* trigers isOpenAdd to display AddModal.tsx */}
+            <p>Add New</p>
+          </div>
+        </div>
+
+        <DataTable
+          dataForDisplay={dataForDisplay}
+          handleEditClick={handleEditClick}
+          handleDeleteClick={handleDeleteClick}
+          isOpenAdd={isOpenAdd}
+          searchQuery={searchQuery}
+        />
+
+        <Search
+          isOpenSearch={isOpenSearch}
+          setIsOpenSearch={setIsOpenSearch}
+          handleSearchInput={handleSearchInput}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+        />
+      </div>
     </>
   );
 };

@@ -3,7 +3,9 @@
   margin: 2rem 0;
 }
 
-
+.page{
+  padding: 1rem;
+}
 
 .modal_background{
 position: fixed;
@@ -21,9 +23,21 @@ z-index: 1;
 
 .modal_div{
   background-color: white;
+  border-radius: 3px;
+  padding: 1rem 1.5rem 2rem;
 }
 
-.modal{
+
+.input{
+  margin: 0.7rem 0;
+}
+.product_name{
+  padding-bottom: 0.7rem 0;
+}
+
+.display_column{
+  display: flex;
+  flex-direction: column;
 }
 
 .h2{
@@ -31,38 +45,31 @@ z-index: 1;
   margin-bottom: 1rem;
 }
 
+
 .form_condition{
   color: rgb(255, 135, 61);
   font-size: 1.2rem;
 }
-.add{
+
+.align_right{
+  display: flex;
+  justify-content: flex-end;
+}
+.buttons{
+  display: flex;
+  justify-content: space-around;
+  margin: 1.5rem 0;
+}
+.button{
   background-color: #fcba19;
-  width: 3rem;
-  height: 1.4rem;
   border-radius: 4px;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-right: 0.2rem;
   cursor: pointer;
   color: white;
-
-}
-
-.x{
-  background-color: #fcba19;
-  width: 3rem;
-  height: 1.4rem;
-  border-radius: 4px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-right: 0.2rem;
-  cursor: pointer;
-  color: white;
-  margin: 0 0 0 auto;
-}
-.add_text{
+  padding: 0.3rem 1rem;
+  border: none;
 }
 
 .data_table{
@@ -71,9 +78,10 @@ z-index: 1;
 }
 
 .table_div{
-  border: solid 0.5rem black;
-  height: 30rem;
+  border: solid 0.06rem #003366;
+  height: 70vh;
   overflow-y: scroll;
+  margin-top: 1rem;
 }
 
 .th{
@@ -96,31 +104,14 @@ z-index: 1;
 .form{
   display: flex;
   flex-direction: column;
-  width: 50%;
   margin: 0 auto;
-}
-
-.edit_form{
-  display: flex;
-  flex-direction: column;
-  width: 50%;
-  margin: 0 auto;
-}
-
-.button{
-  background-color: #fcba19;
-  color: white;
-  width: 40%;
-  height: 2rem;
-  margin: 1rem auto;
-  border: none;
-  cursor: pointer;
 }
 
 .selected_developers_box{
   display: flex;
   justify-content: space-around;
   font-size: 0.7rem;
+  margin-top: 1rem;
 }
 
 .selected_developers{
@@ -131,6 +122,7 @@ z-index: 1;
   width:fit-content;
   background-color: #38598a;
   padding: 0 0.5rem;
+  margin: 0 0.2rem;
   border-radius: 4px;
 }
 

@@ -26,11 +26,11 @@ export default async function handler(
     try {
       const response = await updateProduct.run(
         req.body.productName,
-        req.body.productOwnerName,
-        req.body.Developers,
-        req.body.scrumMasterName,
+        req.body.productOwnerName.lowercase(),
+        req.body.Developers.lowercase(),
+        req.body.scrumMasterName.lowercase(),
         req.body.startDate,
-        req.body.methodology,
+        req.body.methodology.lowercase(),
         productId
       );
       console.log(response);
@@ -40,6 +40,6 @@ export default async function handler(
       res.json(`${error} no data is edited`);
     }
   } else {
-    console.log("product could not be ");
+    console.log("check your req method or API address");
   }
 }
