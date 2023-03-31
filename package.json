@@ -20,5 +20,8 @@
     "sqlite3": "^5.1.6",
     "typescript": "5.0.2",
     "uniqid": "^5.4.0"
+  },
+  "devDependencies": {
+    "@types/uniqid": "^5.3.2"
   }
 }
