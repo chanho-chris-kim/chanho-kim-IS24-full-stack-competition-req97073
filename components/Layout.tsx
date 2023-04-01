@@ -8,6 +8,7 @@ import styles from "../styles/Home.module.css";
 import Search from "./Search";
 
 const Layout = ({
+  refreshData,
   dataForDisplay,
   selectedDevelopers,
   setSelectedDevelopers,
@@ -46,6 +47,7 @@ const Layout = ({
       <Navbar />
       <div className={styles.page}>
         <AddModal
+          refreshData={refreshData}
           dataForDisplay={dataForDisplay}
           formConditioning={formConditioning}
           setFormConditioning={setFormConditioning}
@@ -58,6 +60,7 @@ const Layout = ({
           deleteDeveloper={deleteDeveloper}
         />
         <EditModal
+          refreshData={refreshData}
           formConditioning={formConditioning}
           setFormConditioning={setFormConditioning}
           isOpen={isOpen}
@@ -69,6 +72,7 @@ const Layout = ({
           deleteDeveloper={deleteDeveloper}
         />
         <DeleteModal
+          refreshData={refreshData}
           isOpenDelete={isOpenDelete}
           setIsOpenDelete={setIsOpenDelete}
           deleteId={deleteId}

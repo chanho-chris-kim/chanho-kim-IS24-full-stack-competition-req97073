@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import openDb from "../../../helpers/sqliteDatabase";
 const sqlite3 = require("sqlite3");
 
-export default async function handler(
+export default async function PutOrDeleteProduct(
   req: NextApiRequest,
   res: NextApiResponse
 ) {

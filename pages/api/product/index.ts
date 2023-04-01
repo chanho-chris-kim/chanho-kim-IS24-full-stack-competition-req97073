@@ -1,7 +1,7 @@
 import openDb from "../../../helpers/sqliteDatabase";
 const sqlite3 = require("sqlite3");
 
-export default async function getCategories(req: any, res: any) {
+export default async function GetOrPostProducts(req: any, res: any) {
   const db = await openDb(); //fetching data & storing it into db
 
   // API for GET

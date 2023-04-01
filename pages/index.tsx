@@ -1,6 +1,6 @@
 import axios from "axios";
 import Layout from "@/components/Layout";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface Products {
   products: {
@@ -34,6 +34,7 @@ interface FormEditData {
 }
 
 export default function Home({ products }: Products) {
+  const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
   const [dataForDisplay, setDataForDisplay] = useState(products);
   const [selectedDevelopers, setSelectedDevelopers] = useState([]);
   const [form, setForm] = useState<FormData>({
@@ -122,8 +123,17 @@ export default function Home({ products }: Products) {
     }
   }
 
+  const refreshData = () => {
+    setIsRefreshing(true);
+  };
+
+  useEffect(() => {
+    setIsRefreshing(false);
+  }, [products]);
+
   return (
     <Layout
+      refreshData={refreshData}
       dataForDisplay={dataForDisplay}
       selectedDevelopers={selectedDevelopers}
       setSelectedDevelopers={setSelectedDevelopers}

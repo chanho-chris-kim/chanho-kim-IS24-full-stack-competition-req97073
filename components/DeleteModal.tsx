@@ -1,17 +1,13 @@
 import styles from "../styles/Home.module.css";
-import { useRouter } from "next/router";
 
 function DeleteModal({
+  refreshData,
   isOpenDelete,
   setIsOpenDelete,
   deleteId,
   setDeleteId,
 }: any) {
   const URL = "http://localhost:3000/api/product";
-  const router = useRouter();
-  const refreshData = () => {
-    router.replace(router.asPath);
-  };
 
   async function deleteProduct(deleteId: string) {
     try {

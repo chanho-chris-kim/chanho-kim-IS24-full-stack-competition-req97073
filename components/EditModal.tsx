@@ -1,8 +1,8 @@
 import uniqid from "uniqid";
 import styles from "../styles/Home.module.css";
-import { useRouter } from "next/router";
 
 function EditModal({
+  refreshData,
   formConditioning,
   setFormConditioning,
   isOpen,
@@ -14,10 +14,6 @@ function EditModal({
   deleteDeveloper,
 }: any) {
   const URL = "http://localhost:3000/api/product";
-  const router = useRouter();
-  const refreshData = () => {
-    router.replace(router.asPath);
-  };
 
   const handleEditSubmit = async (data: any) => {
     if (!data.productName) {

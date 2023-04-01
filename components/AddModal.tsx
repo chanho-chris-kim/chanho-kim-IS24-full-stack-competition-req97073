@@ -1,6 +1,5 @@
 import styles from "../styles/Home.module.css";
 import uniqid from "uniqid";
-import { useRouter } from "next/router";
 
 interface FormData {
   productName: string;
@@ -12,7 +11,7 @@ interface FormData {
 }
 
 function AddModal({
-  dataForDisplay,
+  refreshData,
   formConditioning,
   setFormConditioning,
   isOpenAdd,
@@ -24,10 +23,6 @@ function AddModal({
   deleteDeveloper,
 }: any) {
   const URL = "http://localhost:3000/api/product";
-  const router = useRouter();
-  const refreshData = () => {
-    router.replace(router.asPath);
-  };
 
   const handlePostSubmit = async (data: FormData) => {
     if (!data.productName) {
@@ -66,8 +61,7 @@ function AddModal({
           "Content-Type": "application/json",
         },
         method: "POST",
-      }).then(() => {
-        console.log(dataForDisplay);
+      }).then((res) => {
         setFormConditioning();
         setForm({
           productName: "",
