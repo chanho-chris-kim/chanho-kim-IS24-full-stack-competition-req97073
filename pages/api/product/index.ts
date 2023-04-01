@@ -13,7 +13,7 @@ export default async function getCategories(req: any, res: any) {
 
       // if not success
     } catch (error) {
-      res.json(error, "can't fetch data");
+      res.json(error);
     }
   }
 
@@ -32,10 +32,10 @@ export default async function getCategories(req: any, res: any) {
         req.body.methodology
       );
       await response.finalize();
-
+      res.json(201);
       // if not success
     } catch (error) {
-      res.json(error, "no data is inserted");
+      res.json(error);
     }
   }
 

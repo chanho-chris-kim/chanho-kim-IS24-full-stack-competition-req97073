@@ -9,7 +9,6 @@ import Search from "./Search";
 
 const Layout = ({
   dataForDisplay,
-  setDataForDisplay,
   selectedDevelopers,
   setSelectedDevelopers,
   formConditioning,
@@ -75,7 +74,6 @@ const Layout = ({
           deleteId={deleteId}
           setDeleteId={setDeleteId}
         />
-
         <h1>IMB Database</h1>
         <div className={styles.align_right}>
           <div className={styles.button} onClick={() => setIsOpenAdd(true)}>

@@ -49,7 +49,7 @@ function DataTable({
                     />
                   </td>
                   <td className={styles.td}>{product.productId}</td>
-                  <td className={styles.td}>{product.productName}</td>
+                  <td className={`${styles.td} ${styles.product_name}`}>{product.productName}</td>
                   <td className={styles.td}>{product.productOwnerName}</td>
                   <td className={styles.td}>
                     {JSON.parse(product.Developers).map((developer: any) => {

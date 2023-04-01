@@ -16,8 +16,9 @@ export default async function handler(
     try {
       const response = await deleteProduct.run(productId);
       await response.finalize();
+      res.json(200);
     } catch (error) {
-      res.json(`${error} no data is deleted`);
+      res.json(error);
     }
   } else if (req.method === "PUT") {
     const updateProduct = await db.prepare(
@@ -33,11 +34,10 @@ export default async function handler(
         req.body.methodology,
         productId
       );
-      console.log(response);
-        res.json(response);
-    //   await response.finalize();
+      await response.finalize();
+      res.json(200);
     } catch (error) {
-      res.json(`${error} no data is edited`);
+      res.json(error);
     }
   } else {
     console.log("check your req method or API address");

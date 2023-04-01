@@ -7,6 +7,24 @@
   padding: 1rem;
 }
 
+.four_oh_four_page{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 3.5rem;
+  width: 100vw;
+  height: 9rem;
+  border-radius: 3px;
+  padding: 1rem;
+  color:#003366;
+}
+
+.a_tag, .a_tag:link, .a_tag:visited {
+text-decoration: none;
+color: white;
+}
+
 .modal_background{
 position: fixed;
 top: 0;
@@ -100,6 +118,11 @@ z-index: 1;
 
 .td{
   border: solid rgb(74, 74, 74) 0.01rem;
+}
+
+.product_name{
+ text-align: left;
+ padding-left: 1rem;
 }
 
 .icon{
