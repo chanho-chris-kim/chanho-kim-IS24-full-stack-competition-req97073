@@ -1,0 +1,178 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Products API for BC province IMB",
+    "description": "Products API for BC province IMB",
+    "contact": {
+      "email": "chris92529@gmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://virtserver.swaggerhub.com/chanho-chris-kim/IMB_API/1.0.0",
+      "description": "SwaggerHub API Auto Mocking"
+    }
+  ],
+  "tags": [
+    {
+      "name": "developers",
+      "description": "Operations available to regular developers"
+    }
+  ],
+  "paths": {
+    "/api/product": {
+      "get": {
+        "tags": [
+          "developers"
+        ],
+        "summary": "getting a list of products",
+        "description": "getting a list of products in an array of objects",
+        "operationId": "getProduct",
+        "responses": {
+          "200": {
+            "description": "fetched the list of products successfully"
+          },
+          "400": {
+            "description": "could not get the list of products"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "developers"
+        ],
+        "summary": "posting a product",
+        "description": "posting a product in an object",
+        "operationId": "addInventory",
+        "parameters": [
+          {
+            "name": "toAddNewProduct",
+            "in": "query",
+            "description": "In an object, include ALL the keys and values with the correct types. Each values can't be null. (productId is auto-generated in the db.)",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "object",
+              "example": {
+                "productName": "lorem ipsum",
+                "productOwnerName": "michael",
+                "Developers": "[\"jek\",\"michael\",\"cornelia\",\"hassan\",\"jason\"]",
+                "scrumMasterName": "lisa",
+                "startDate": "2023-01-29",
+                "methodology": "agile"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "added the product successfully"
+          },
+          "400": {
+            "description": "could not create the product"
+          }
+        }
+      }
+    },
+    "/api/product/{:productId}": {
+      "put": {
+        "tags": [
+          "developers"
+        ],
+        "summary": "editing a product",
+        "description": "editing a product in an object corresponds to productId",
+        "operationId": "editProducts",
+        "parameters": [
+          {
+            "name": ":productId",
+            "in": "path",
+            "description": "include the product id as path at the end",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "PUT query",
+            "in": "query",
+            "description": "Edits a single product with the corresponding productId. Needs to include query parameter object. In an object, include ALL the keys and values with the correct types. Each values can't be null. (productId cannot be edited)",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "object",
+              "example": {
+                "productName": "lorem ipsum",
+                "productOwnerName": "michael",
+                "Developers": "[\"jek\",\"michael\",\"cornelia\",\"hassan\",\"jason\"]",
+                "scrumMasterName": "lisa",
+                "startDate": "2023-01-29",
+                "methodology": "agile"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "edited the product successfully"
+          },
+          "400": {
+            "description": "could not edit the product"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "developers"
+        ],
+        "summary": "deleting a product",
+        "description": "deleting a product corresponds to productId",
+        "operationId": "deleteProducts",
+        "parameters": [
+          {
+            "name": ":productId",
+            "in": "path",
+            "description": "include the product id as path at the end",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "DELETE query",
+            "in": "query",
+            "description": "include the following object with correct corresponding keys and types",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "object",
+              "example": {
+                "productId": 1
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "product deleted successfully"
+          },
+          "400": {
+            "description": "could not delete the product"
+          }
+        }
+      }
+    }
+  },
+  "components": {}
+}
