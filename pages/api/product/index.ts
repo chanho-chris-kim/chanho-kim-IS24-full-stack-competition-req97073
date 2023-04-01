@@ -13,7 +13,7 @@ export default async function GetOrPostProducts(req: any, res: any) {
 
       // if not success
     } catch (error) {
-      res.json(error);
+      res.sendStatus(404).json(error);
     }
   }
 
@@ -32,7 +32,7 @@ export default async function GetOrPostProducts(req: any, res: any) {
         req.body.methodology
       );
       await response.finalize();
-      res.json(201);
+      res.sendStatus(201);
       // if not success
     } catch (error) {
       res.json(error);

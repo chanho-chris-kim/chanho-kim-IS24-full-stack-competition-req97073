@@ -16,7 +16,7 @@ export default async function PutOrDeleteProduct(
     try {
       const response = await deleteProduct.run(productId);
       await response.finalize();
-      res.json(200);
+
     } catch (error) {
       res.json(error);
     }
@@ -35,7 +35,7 @@ export default async function PutOrDeleteProduct(
         productId
       );
       await response.finalize();
-      res.json(200);
+      
     } catch (error) {
       res.json(error);
     }
