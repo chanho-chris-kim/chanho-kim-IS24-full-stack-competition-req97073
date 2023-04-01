@@ -26,22 +26,22 @@ function AddModal({
 
   const handlePostSubmit = async (data: FormData) => {
     if (!data.productName) {
-      setFormConditioning("Can't leave product name empty");
+      setFormConditioning("Product name cannot be blank");
       return;
     } else if (!data.productOwnerName) {
-      setFormConditioning("Can't leave product owner name empty");
+      setFormConditioning("Product owner must be selected");
       return;
     } else if (selectedDevelopers.length == 0) {
-      setFormConditioning("Can't leave developers empty");
+      setFormConditioning("Developer(s) must be selected");
       return;
     } else if (!data.scrumMasterName) {
-      setFormConditioning("Can't scrum master name empty");
+      setFormConditioning("Scrum master must be selected");
       return;
     } else if (!data.startDate) {
-      setFormConditioning("Can't leave start date empty");
+      setFormConditioning("Start date must be selected");
       return;
     } else if (!data.methodology) {
-      setFormConditioning("Can't leave methodology empty");
+      setFormConditioning("Methodology must be selected");
       return;
     } else {
       try {
@@ -66,7 +66,7 @@ function AddModal({
         setForm({
           productName: "",
           productOwnerName: "",
-          Developers: "",
+          Developers: JSON.stringify([]),
           scrumMasterName: "",
           startDate: "",
           methodology: "",
@@ -110,7 +110,7 @@ function AddModal({
                   setForm({
                     productName: "",
                     productOwnerName: "",
-                    Developers: "",
+                    Developers: JSON.stringify(selectedDevelopers),
                     scrumMasterName: "",
                     startDate: "",
                     methodology: "",

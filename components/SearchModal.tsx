@@ -31,6 +31,7 @@ function SearchModal({ products, isOpenSearch, setIsOpenSearch }: any) {
                 onClick={() => {
                   setIsOpenSearch(false);
                   setSearchQuery("");
+                  setSearchBy(null);
                 }}
               >
                 <p>x</p>
@@ -58,6 +59,7 @@ function SearchModal({ products, isOpenSearch, setIsOpenSearch }: any) {
               </div>
               {searchBy ? (
                 <input
+                  autoFocus
                   className={styles.search_input}
                   type="text"
                   value={searchQuery}
