@@ -5,11 +5,11 @@ import DataTable from "./DataTable";
 import Navbar from "./Navbar";
 import DeleteModal from "./DeleteModal";
 import styles from "../styles/Home.module.css";
-import Search from "./Search";
+import SearchModal from "./SearchModal";
 
 const Layout = ({
+  products,
   refreshData,
-  dataForDisplay,
   selectedDevelopers,
   setSelectedDevelopers,
   formConditioning,
@@ -33,9 +33,6 @@ const Layout = ({
   handleEditClick,
   handleDeleteClick,
   deleteDeveloper,
-  handleSearchInput,
-  searchQuery,
-  setSearchQuery,
 }: any) => {
   return (
     <>
@@ -48,7 +45,6 @@ const Layout = ({
       <div className={styles.page}>
         <AddModal
           refreshData={refreshData}
-          dataForDisplay={dataForDisplay}
           formConditioning={formConditioning}
           setFormConditioning={setFormConditioning}
           isOpenAdd={isOpenAdd}
@@ -78,27 +74,27 @@ const Layout = ({
           deleteId={deleteId}
           setDeleteId={setDeleteId}
         />
+        <SearchModal
+          products={products}
+          isOpenSearch={isOpenSearch}
+          setIsOpenSearch={setIsOpenSearch}
+        />
         <h1>IMB Database</h1>
         <div className={styles.align_right}>
           <div className={styles.button} onClick={() => setIsOpenAdd(true)}>
             {/* trigers isOpenAdd to display AddModal.tsx */}
             <p>Add New</p>
           </div>
+          <div className={styles.button} onClick={() => setIsOpenSearch(true)}>
+            <p>Search</p>
+          </div>
         </div>
 
         <DataTable
-          dataForDisplay={dataForDisplay}
+          products={products}
           handleEditClick={handleEditClick}
           handleDeleteClick={handleDeleteClick}
           isOpenAdd={isOpenAdd}
-        />
-
-        <Search
-          isOpenSearch={isOpenSearch}
-          setIsOpenSearch={setIsOpenSearch}
-          handleSearchInput={handleSearchInput}
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
         />
       </div>
     </>

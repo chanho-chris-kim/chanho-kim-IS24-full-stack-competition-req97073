@@ -5,7 +5,7 @@ import editIcon from "../public/edit.svg";
 import deleteIcon from "../public/delete.svg";
 
 function DataTable({
-  dataForDisplay,
+  products,
   handleEditClick,
   handleDeleteClick,
 }: any) {
@@ -17,7 +17,7 @@ function DataTable({
             <tr className={styles.th}>
               <th></th>
               <th>Product Number</th>
-              <th>Product total: {dataForDisplay.length}</th>
+              <th>Product total: {products.length}</th>
               <th>Product Owner</th>
               <th>Developers</th>
               <th>Scrum Master</th>
@@ -26,7 +26,8 @@ function DataTable({
             </tr>
           </thead>
           <tbody>
-            {dataForDisplay.map((product: any) => {
+
+            {products.map((product: any) => {
               return (
                 <tr key={product.productId}>
                   <td className={styles.td}>
@@ -52,7 +53,7 @@ function DataTable({
                   <td className={`${styles.td} ${styles.product_name}`}>{product.productName}</td>
                   <td className={styles.td}>{product.productOwnerName}</td>
                   <td className={styles.td}>
-                    {JSON.parse(product.Developers).map((developer: any) => {
+                    {JSON.parse(product.Developers).map((developer: string) => {
                       return <p key={uniqid()}>{developer}</p>;
                     })}
                   </td>

@@ -1,6 +1,7 @@
 import axios from "axios";
 import Layout from "@/components/Layout";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useRouter } from 'next/router';
 
 interface Products {
   products: {
@@ -34,8 +35,6 @@ interface FormEditData {
 }
 
 export default function Home({ products }: Products) {
-  const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
-  const [dataForDisplay, setDataForDisplay] = useState(products);
   const [selectedDevelopers, setSelectedDevelopers] = useState([]);
   const [form, setForm] = useState<FormData>({
     productName: "",
@@ -48,13 +47,16 @@ export default function Home({ products }: Products) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isOpenAdd, setIsOpenAdd] = useState<boolean>(false);
   const [isOpenDelete, setIsOpenDelete] = useState<boolean>(false);
-  const [isOpenSearch, setIsOpenSearch] = useState<string>("");
+  const [isOpenSearch, setIsOpenSearch] = useState<boolean>(false);
   const [deleteId, setDeleteId] = useState<string>();
   const [formConditioning, setFormConditioning] = useState<string>();
   const [editData, setEditData] = useState<FormEditData>();
   const [selectedEditDevelopers, setSelectedEditDevelopers] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-
+  
+  const router = useRouter();
+  const refreshData = () => {
+    router.replace(router.asPath);
+  };
   async function handleEditClick(id: string) {
     const foundData: any = products.find((product: any) => {
       return id === product.productId;
@@ -109,32 +111,10 @@ export default function Home({ products }: Products) {
     }
   }
 
-  async function handleSearchInput(input: string, searchFor: string) {
-    if (searchFor == "scrum_master") {
-      const filteredData: any = products.filter((product: any) => {
-        return product.scrumMasterName.includes(input);
-      });
-      setDataForDisplay(filteredData);
-    } else if (searchFor == "developer_name") {
-      const filteredData: any = products.filter((product: any) => {
-        return product.Developers.includes(input);
-      });
-      setDataForDisplay(filteredData);
-    }
-  }
-
-  const refreshData = () => {
-    setIsRefreshing(true);
-  };
-
-  useEffect(() => {
-    setIsRefreshing(false);
-  }, [products]);
-
   return (
     <Layout
+      products={products}
       refreshData={refreshData}
-      dataForDisplay={dataForDisplay}
       selectedDevelopers={selectedDevelopers}
       setSelectedDevelopers={setSelectedDevelopers}
       formConditioning={formConditioning}
@@ -158,9 +138,6 @@ export default function Home({ products }: Products) {
       handleEditClick={handleEditClick}
       handleDeleteClick={handleDeleteClick}
       deleteDeveloper={deleteDeveloper}
-      handleSearchInput={handleSearchInput}
-      searchQuery={searchQuery}
-      setSearchQuery={setSearchQuery}
     />
   );
 }
